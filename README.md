@@ -62,7 +62,7 @@ npm install --global windows-build-tools
 
 ```bash
 # Install globally
-npm install -g @trinhminhhieu/remote-scrcpy
+npm install -g remote-scrcpy
 
 # Run
 remote-scrcpy
@@ -108,7 +108,7 @@ You can integrate remote-scrcpy into your own Node.js/Express application:
 #### 1. Install as a dependency
 
 ```bash
-npm install @trinhminhhieu/remote-scrcpy
+npm install remote-scrcpy
 ```
 
 #### 2. Basic Integration
@@ -122,7 +122,7 @@ const PORT = 3000;
 
 // Serve remote-scrcpy static files
 app.use('/scrcpy', express.static(
-  path.join(require.resolve('@trinhminhhieu/remote-scrcpy'), '../public')
+  path.join(require.resolve('remote-scrcpy'), '../public')
 ));
 
 // Your other routes
@@ -211,7 +211,7 @@ const path = require('path');
 
 // Start remote-scrcpy server
 const scrcpyPath = path.join(
-  require.resolve('@trinhminhhieu/remote-scrcpy'),
+  require.resolve('remote-scrcpy'),
   '../index.js'
 );
 
