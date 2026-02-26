@@ -45,11 +45,24 @@ remote-scrcpy is a web client for [Genymobile/scrcpy](https://github.com/Genymob
 
 ## Installation
 
+### Windows Prerequisites
+
+On Windows, you need to install build tools first:
+
+```bash
+# Option 1: Install windows-build-tools (Recommended)
+npm install --global windows-build-tools
+
+# Option 2: Install Visual Studio Build Tools manually
+# Download from: https://visualstudio.microsoft.com/downloads/
+# Select "Desktop development with C++" workload
+```
+
 ### From npm (Recommended)
 
 ```bash
 # Install globally
-npm install -g remote-scrcpy
+npm install -g @trinhminhhieu/remote-scrcpy
 
 # Run
 remote-scrcpy
