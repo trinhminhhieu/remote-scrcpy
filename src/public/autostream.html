@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Stream</title>
+    <script>
+        // Lấy parameters từ query string và chuyển sang hash
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const udid = params.get('udid');
+            const player = params.get('player') || 'mse';
+            
+            if (udid) {
+                // Chuyển hướng sang hash-based URL ngay lập tức
+                const hashUrl = `#!/action=stream&udid=${udid}&player=${player}`;
+                window.location.replace('/' + hashUrl);
+            } else {
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.innerHTML = '<p style="color: red; padding: 20px; font-family: monospace;">Error: Missing udid parameter</p>';
+                });
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p style="padding: 20px; font-family: monospace;">Redirecting to stream...</p>
+</body>
+</html>

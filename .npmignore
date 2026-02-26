@@ -1,0 +1,43 @@
+# Source files
+src/
+webpack/
+typings/
+
+# Development files
+.git/
+.github/
+.vscode/
+node_modules/
+.eslintrc
+.eslintignore
+.prettierrc
+tsconfig.json
+tsconfig.node.json
+build.config.override.json
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Build artifacts
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Test files
+test/
+tests/
+*.test.ts
+*.spec.ts
