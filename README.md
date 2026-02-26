@@ -86,6 +86,8 @@ The server will start on `http://localhost:8000`
 
 ## Usage
 
+### Standalone Server
+
 1. Connect your Android device via ADB:
    ```bash
    adb connect <device-ip>:5555
@@ -98,6 +100,135 @@ The server will start on `http://localhost:8000`
 4. Choose a video decoder (H264 Converter recommended for best quality)
 
 5. Start controlling your device!
+
+### Integration into Your Project
+
+You can integrate remote-scrcpy into your own Node.js/Express application:
+
+#### 1. Install as a dependency
+
+```bash
+npm install @trinhminhhieu/remote-scrcpy
+```
+
+#### 2. Basic Integration
+
+```javascript
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = 3000;
+
+// Serve remote-scrcpy static files
+app.use('/scrcpy', express.static(
+  path.join(require.resolve('@trinhminhhieu/remote-scrcpy'), '../public')
+));
+
+// Your other routes
+app.get('/', (req, res) => {
+  res.send('My App with remote-scrcpy integration');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Access remote-scrcpy at http://localhost:${PORT}/scrcpy`);
+});
+```
+
+#### 3. Embed in iframe
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My App with Device Control</title>
+  <style>
+    #phone-container {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe 
+    id="phone-container"
+    src="http://localhost:8000/#!action=stream&udid=localhost:5555&player=mse"
+    allow="autoplay; fullscreen"
+  ></iframe>
+</body>
+</html>
+```
+
+#### 4. URL Parameters
+
+Customize the stream with URL parameters:
+
+```
+http://localhost:8000/#!action=stream&udid=DEVICE_ID&player=PLAYER_TYPE
+```
+
+Parameters:
+- `action=stream` - Start streaming immediately
+- `udid=DEVICE_ID` - Device identifier (e.g., `localhost:5555`)
+- `player=PLAYER_TYPE` - Video decoder:
+  - `mse` - H264 Converter (recommended)
+  - `broadway` - Broadway.js
+  - `tinyh264` - Tiny H264
+  - `webcodecs` - WebCodecs
+
+#### 5. React/Vue Integration Example
+
+```jsx
+import React from 'react';
+
+function PhoneDisplay({ deviceId = 'localhost:5555' }) {
+  const scrcpyUrl = `http://localhost:8000/#!action=stream&udid=${deviceId}&player=mse`;
+  
+  return (
+    <div style={{ width: '100%', height: '100vh' }}>
+      <iframe
+        src={scrcpyUrl}
+        style={{ width: '100%', height: '100%', border: 'none' }}
+        allow="autoplay; fullscreen"
+        title="Android Device Screen"
+      />
+    </div>
+  );
+}
+
+export default PhoneDisplay;
+```
+
+#### 6. Advanced: Programmatic Control
+
+Start the server programmatically:
+
+```javascript
+const { spawn } = require('child_process');
+const path = require('path');
+
+// Start remote-scrcpy server
+const scrcpyPath = path.join(
+  require.resolve('@trinhminhhieu/remote-scrcpy'),
+  '../index.js'
+);
+
+const scrcpyServer = spawn('node', [scrcpyPath], {
+  stdio: 'inherit',
+  env: { ...process.env, PORT: '8000' }
+});
+
+scrcpyServer.on('error', (err) => {
+  console.error('Failed to start remote-scrcpy:', err);
+});
+
+// Cleanup on exit
+process.on('exit', () => {
+  scrcpyServer.kill();
+});
+```
 
 ## Configuration
 
