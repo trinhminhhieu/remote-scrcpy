@@ -1,6 +1,6 @@
 {
   "name": "remote-scrcpy",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "Web-based remote control for Android devices powered by scrcpy",
   "main": "dist/index.js",
   "bin": {
@@ -16,16 +16,16 @@
     "webrtc",
     "device-control"
   ],
-  "author": "trinhminhieu",
+  "author": "trinhminhhieu",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trinhminhieu/remote-scrcpy.git"
+    "url": "https://github.com/trinhminhhieu/remote-scrcpy.git"
   },
   "bugs": {
-    "url": "https://github.com/trinhminhieu/remote-scrcpy/issues"
+    "url": "https://github.com/trinhminhhieu/remote-scrcpy/issues"
   },
-  "homepage": "https://github.com/trinhminhieu/remote-scrcpy#readme",
+  "homepage": "https://github.com/trinhminhhieu/remote-scrcpy#readme",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -33,23 +33,22 @@
     "clean": "npx rimraf dist",
     "dist:dev": "webpack --config webpack/ws-scrcpy.dev.ts --stats-error-details",
     "dist:prod": "webpack --config webpack/ws-scrcpy.prod.ts --stats-error-details",
-    "dist": "npm run dist:prod",
+    "dist": "npm run dist:prod && npm run copy:readme",
+    "copy:readme": "copy README.md dist\\README.md",
     "start": "npm run dist && cd dist && npm start",
     "script:dist:start": "node ./index.js",
     "lint": "eslint src/ --ext .ts",
     "format": "eslint src/ --fix --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "npm run dist"
+    "prepublishOnly": "echo Please run npm run publish:pkg instead && exit 1",
+    "publish:pkg": "npm run dist && cd dist && npm publish"
   },
   "dependencies": {
     "@dead50f7/adbkit": "^2.11.4",
     "express": "^4.21.2",
     "ios-device-lib": "^0.9.2",
     "node-mjpeg-proxy": "^0.3.2",
-<<<<<<< Updated upstream
     "node-pty": "^1.1.0",
-=======
->>>>>>> Stashed changes
     "portfinder": "^1.0.28",
     "tslib": "^2.3.1",
     "ws": "^8.18.0",
@@ -99,7 +98,7 @@
     "xterm-addon-fit": "^0.5.0"
   },
   "optionalDependencies": {
-    "appium-xcuitest-driver": "^3.62.0",
-    "node-pty": "^0.10.1"
+    "appium-xcuitest-driver": "^3.62.0"
+   
   }
 }
