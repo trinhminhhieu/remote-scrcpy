@@ -1,6 +1,6 @@
 {
   "name": "remote-scrcpy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Web-based remote control for Android devices powered by scrcpy",
   "main": "dist/index.js",
   "bin": {
@@ -33,8 +33,8 @@
     "clean": "npx rimraf dist",
     "dist:dev": "webpack --config webpack/ws-scrcpy.dev.ts --stats-error-details",
     "dist:prod": "webpack --config webpack/ws-scrcpy.prod.ts --stats-error-details",
-    "dist": "npm run dist:prod && npm run copy:readme",
-    "copy:readme": "copy README.md dist\\README.md",
+    "dist": "npm run dist:prod && npm run copy:files",
+    "copy:files": "copyfiles README.md dist && copyfiles src/public/embed.html src/public/autostream.html dist/public -u 2",
     "start": "npm run dist && cd dist && npm start",
     "script:dist:start": "node ./index.js",
     "lint": "eslint src/ --ext .ts",
@@ -67,6 +67,7 @@
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "buffer": "^6.0.3",
+    "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "eslint": "^8.12.0",

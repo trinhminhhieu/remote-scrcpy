@@ -1,0 +1,82 @@
+# Docker Compose configuration for remote-scrcpy
+#
+# This example shows how to run remote-scrcpy in Docker with USB device access.
+#
+# Usage:
+#   docker-compose up -d
+#   docker-compose logs -f
+#   docker-compose down
+
+version: '3.8'
+
+services:
+  remote-scrcpy:
+    image: node:20-slim
+    container_name: remote-scrcpy
+    restart: unless-stopped
+    
+    # Port mapping
+    ports:
+      - "8009:8009"
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - PORT=8009
+      - HOST=0.0.0.0
+    
+    # Install ADB and remote-scrcpy
+    command: >
+      bash -c "
+        apt-get update &&
+        apt-get install -y android-tools-adb &&
+        npm install -g remote-scrcpy &&
+        remote-scrcpy
+      "
+    
+    # USB device access (required for USB-connected devices)
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    
+    # Network mode
+    network_mode: bridge
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8009"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: remote-scrcpy-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - remote-scrcpy
+    profiles:
+      - with-nginx
+
+# Optional: Network configuration
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

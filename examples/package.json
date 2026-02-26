@@ -1,0 +1,36 @@
+{
+  "name": "remote-scrcpy-examples",
+  "version": "1.0.0",
+  "description": "Example implementations for remote-scrcpy",
+  "private": true,
+  "scripts": {
+    "basic": "node basic-server.js",
+    "express": "node express-integration.js",
+    "pm2:start": "pm2 start pm2-ecosystem.config.js",
+    "pm2:stop": "pm2 stop remote-scrcpy",
+    "pm2:restart": "pm2 restart remote-scrcpy",
+    "pm2:logs": "pm2 logs remote-scrcpy",
+    "pm2:monit": "pm2 monit",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "keywords": [
+    "remote-scrcpy",
+    "android",
+    "device-control",
+    "examples"
+  ],
+  "author": "trinhminhieu",
+  "license": "MIT",
+  "dependencies": {
+    "remote-scrcpy": "^1.0.6",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "pm2": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
