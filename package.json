@@ -1,5 +1,5 @@
 {
-  "name": "remote-scrpy",
+  "name": "remote-scrcpy",
   "version": "1.0.1",
   "description": "Web-based remote control for Android devices powered by scrcpy",
   "main": "dist/index.js",
