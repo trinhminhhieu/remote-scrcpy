@@ -1,6 +1,6 @@
 # remote-scrcpy
 
-![remote-scrcpy](./remote-scrcpy.png)
+![remote-scrcpy](https://raw.githubusercontent.com/trinhminhieu/remote-scrcpy/main/remote-scrcpy.png)
 
 Web-based remote control for Android devices powered by scrcpy.
 

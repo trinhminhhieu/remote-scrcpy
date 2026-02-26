@@ -1,6 +1,6 @@
 {
-  "name": "@trinhminhhieu/remote-scrcpy",
-  "version": "1.0.0",
+  "name": "remote-scrpy",
+  "version": "1.0.1",
   "description": "Web-based remote control for Android devices powered by scrcpy",
   "main": "dist/index.js",
   "bin": {
@@ -46,7 +46,7 @@
     "express": "^4.21.2",
     "ios-device-lib": "^0.9.2",
     "node-mjpeg-proxy": "^0.3.2",
-    "node-pty": "^0.10.1",
+    "node-pty": "^1.1.0",
     "portfinder": "^1.0.28",
     "tslib": "^2.3.1",
     "ws": "^8.18.0",
